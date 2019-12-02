@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       ConditionId: DataTypes.INTEGER,
       ProductCodeId: DataTypes.INTEGER,
       PackagingId: DataTypes.INTEGER,
-      unit: DataTypes.ENUM("lb", "MT", "kg"),
+      unit: DataTypes.ENUM("lb", "mt", "kg"),
       supply: DataTypes.ENUM("Ongoing", "One-off"),
       PricingTermId: DataTypes.INTEGER,
       address: DataTypes.STRING,

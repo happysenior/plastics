@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('Users', 'type', {
       after: 'password',
-      type: Sequelize.ENUM('NORMAL', 'PREMIUM')
+      type: Sequelize.ENUM('NORMAL', 'PREMIUM', 'ADMIN')
     });
   },
 

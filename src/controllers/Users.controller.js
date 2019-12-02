@@ -126,7 +126,7 @@ async function register(req, res, next) {
         email: req.body.email,
         password: hasedPassword,
         CompanyId: companyId,
-        type: "PREMIUM",
+        type: "NORMAL",
         email_verified: false
       })
         .save()
@@ -144,10 +144,11 @@ async function register(req, res, next) {
             result => {
               if (result) api.ok(res, { user });
             }
-          );
+          ).catch(e => {
+            api.ok(res, { user });
+          });
         })
         .catch(e => {
-          console.log("error----", e.message);
           api.error(res, e.message, 500);
         });
     });

@@ -107,6 +107,7 @@ async function getBidders(ListingId) {
     where: {
       ListingId
     },
+    order: [['id', 'ASC']],
     include: [
       {
         model: models.User,

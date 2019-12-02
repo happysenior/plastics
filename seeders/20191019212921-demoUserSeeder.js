@@ -29,6 +29,18 @@ module.exports = {
         type: 'PREMIUM',
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        id: 3,
+        first_name: 'Cabka',
+        last_name: ' ',
+        CompanyId: 2,
+        email: 'lauritz@gmail.com',
+        password: bcrypt.hashSync('password', 10),
+        email_verified: 1,
+        type: 'ADMIN',
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ])
   },

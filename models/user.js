@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       CompanyId: DataTypes.INTEGER,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
-      type: DataTypes.ENUM("NORMAL", "PREMIUM"),
+      type: DataTypes.ENUM("NORMAL", "PREMIUM", "ADMIN"),
       businessDescription: DataTypes.TEXT,
       avatar: DataTypes.STRING,
       role_id: DataTypes.INTEGER,

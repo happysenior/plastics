@@ -100,7 +100,7 @@ function getAllUnits(req, res, next) {
       rate: 0.45359273
     },
     {
-      unit: "MT",
+      unit: "mt",
       rate: 1000
     },
     {

@@ -34,7 +34,7 @@ const listingFileUpload = multer({
   }
 }).fields([
   { name: "images", maxCount: 10 },
-  { name: "video", maxCount: 10 },
+  { name: "video", maxCount: 2 },
   { name: "pdf", maxCount: 10 }
 ]);
 

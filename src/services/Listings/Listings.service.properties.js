@@ -93,7 +93,7 @@ async function getUserCompanyLocation(UserId) {
 function getUnits() {
   return [
     { value: "lb", label: "lb" },
-    { value: "MT", label: "MT" },
+    { value: "mt", label: "mt" },
     { value: "kg", label: "kg" }
   ];
 }

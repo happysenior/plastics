@@ -13,7 +13,7 @@ function getListings(UserId, content, limit = null) {
     if (user == null) {
       return [];
     }
-    const usersWhere = user.type !== "PREMIUM" ? { users: "NORMAL" } : {};
+    const usersWhere = user.type !== "PREMIUM" && user.type !== "ADMIN" ? { users: "NORMAL" } : {};
     const activeWhere = { status: "Active" };
     const likeWhere = {
       [Op.or]: [

@@ -130,7 +130,6 @@ async function updateListing(UserId, ListingId, feeds) {
           id: feeds.deletedFiles
         }
       });
-
       result = await models.ListingFile.findAll({
         where: {
           ListingId,
@@ -138,9 +137,8 @@ async function updateListing(UserId, ListingId, feeds) {
         },
         order: [["order", "ASC"]]
       });
-
       for (imageOrder = 0; imageOrder < result.length; imageOrder++) {
-        await result[imageOrder].update({ order: imageOrder });
+          await result[imageOrder].update({ order: imageOrder });
       }
     }
     let images, video, pdf;
@@ -182,7 +180,7 @@ async function updateListing(UserId, ListingId, feeds) {
         })
       ]);
     }
-
+    
     const updatedListing = await models.Listing.findByPk(ListingId, {
       include: [
         { model: models.ListingFile },
@@ -217,7 +215,7 @@ function getListings(UserId, filter) {
     if (user == null) {
       return [];
     }
-    const usersWhere = user.type !== "PREMIUM" ? { users: "NORMAL" } : {};
+    const usersWhere = user.type !== "PREMIUM" && user.type !== "ADMIN" ? { users: "NORMAL" } : {};
     const activeWhere = { status: "Active" };
     const countryIdsWhere =
       filter.countryIds && filter.countryIds.length > 0
@@ -308,6 +306,7 @@ function getListings(UserId, filter) {
           pricePerUnit: item.pricePerUnit,
           unit: item.unit,
           type: item.User.type,
+          isAuction: item.isAuction,
           Currency,
           formatted_address,
           image

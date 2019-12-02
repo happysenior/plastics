@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.changeColumn('Listings', 'unit', {
-      type: Sequelize.ENUM('lb', 'MT', 'kg')
+      type: Sequelize.ENUM('lb', 'mt', 'kg')
     })
   },
 
