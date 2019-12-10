@@ -27,6 +27,8 @@ async function bid(feeds) {
     };
   }
 
+  const listing = await models.Listing.findByPk(feeds.ListingId);
+  await listing.update({ pricePerUnit: feeds.price });
   return models.Auction.build(feeds)
     .save()
     .then(result => {
