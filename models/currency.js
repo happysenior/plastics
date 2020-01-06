@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       code: DataTypes.STRING,
       symbol: DataTypes.STRING,
+      unicode: DataTypes.STRING,
       rate: DataTypes.FLOAT
     },
     {}

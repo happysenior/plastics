@@ -21,7 +21,7 @@ async function getNotifications(UserId, limit = null) {
         }
       ]
     });
-    
+
     let nl = [];
     await Promise.all(
       userNotifications.map(async x => {
@@ -31,6 +31,7 @@ async function getNotifications(UserId, limit = null) {
           case "AUCTION_OWNER":
           case "FOLLOWED":
           case "NEW_LISTING":
+          case "NEW_ORDER":
             let Actor = null;
             if (x.Notification.actionUser) {
               const ActorDetail = await models.User.findByPk(
@@ -109,7 +110,7 @@ async function deleteNotification(req, res, next) {
     } else {
       api.error(res, "Item not found", 404);
     }
-  } catch (e) {}
+  } catch (e) { }
 }
 module.exports = {
   getSomeNotifications,

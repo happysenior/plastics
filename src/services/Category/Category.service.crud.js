@@ -65,6 +65,8 @@ function getListings(CategoryId, ListingId = null, limit = null) {
         title: item.title,
         pricePerUnit: item.pricePerUnit,
         unit: item.unit,
+        isAuction: item.isAuction,
+        status: item.status,
         formatted_address,
         Currency: item.Country.Currency,
         image

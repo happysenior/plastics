@@ -211,17 +211,17 @@ const publishAuction = new CronJob("*/60 * * * * *", async function() {
       // Send email to Winner
       if (listing.Auctions && listing.Auctions.length > 0) {
         winnerAuction = listing.Auctions[0];
-        // await processWinner(winnerAuction);
+        await processWinner(winnerAuction);
         sentEmails.push(winnerAuction.User.email);
       }
       // Send email to auction owner
-      // await processAuctionOwner(listing, winnerAuction);
+      await processAuctionOwner(listing, winnerAuction);
       sentEmails.push(listing.User.email);
       // Send email to bidders
       for (const auction of listing.Auctions) {
         const dups = sentEmails.filter(item => item === auction.User.email);
         if (dups.length === 0) {
-          // await notifyAboutAuction(auction, winnerAuction);
+          await notifyAboutAuction(auction, winnerAuction);
           sentEmails.push(auction.User.email);
         }
       }

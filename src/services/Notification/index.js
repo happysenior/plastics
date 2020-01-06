@@ -98,7 +98,65 @@ async function notifyNewListing(UserId, ListingId) {
   }
 }
 
+async function notifyNewOrder(orderId) {
+  const order = await models.Order.findByPk(orderId, {
+    include: [
+      { model: models.User, as: 'Buyer' },
+      { model: models.User, as: 'Seller' },
+      {
+        model: models.Listing,
+        include: [
+          { model: models.Category },
+          { model: models.Condition },
+          { model: models.PricingTerm },
+          {
+            model: models.Country,
+            include: [{ model: models.Currency }]
+          },
+        ]
+      }
+    ]
+  });
+  const ntf = await models.Notification.create({
+    content: `ordered your listing ${order.Listing.title}.`,
+    category: "NEW_ORDER",
+    link: `/profile/${order.Buyer.id}/`,
+    actionUser: order.Buyer.id
+  });
+
+  const userNtf = await models.UserNotification.create({
+    UserId: order.Seller.id,
+    NotificationId: ntf.id,
+    read: false
+  });
+
+  const io = sockets.io;
+
+  for (let key in io.sockets.sockets) {
+    if (io.sockets.sockets.hasOwnProperty(key)) {
+      if (order.Seller.id == io.sockets.sockets[key].userId) {
+
+        io.sockets.sockets[key].emit("NEW_NOTIFICATION", {
+          category: "NEW_ORDER",
+          content: `ordered your listing ${order.Listing.title}`,
+          link: `/profile/${order.Buyer.id}/`,
+          UserNotificationId: userNtf.id,
+          createdAt: userNtf.createdAt,
+          Actor: {
+            avatar: order.Buyer.avatar,
+            first_name: order.Buyer.first_name,
+            last_name: order.Buyer.last_name,
+            id: order.Buyer.id
+          }
+        });
+      }
+    }
+  }
+
+}
+
 module.exports = {
   notifyFollow,
-  notifyNewListing
+  notifyNewListing,
+  notifyNewOrder
 };

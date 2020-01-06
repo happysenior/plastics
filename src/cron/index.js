@@ -1,8 +1,8 @@
-// import publishAuction from "./Auction.cron";
+import publishAuction from "./Auction.cron";
 
 function init() {
-  // publishAuction.start();
-  console.log("// Auction email and notification is temporaly disabled")
+  publishAuction.start();
+  // console.log("// Auction email and notification is temporaly disabled")
 }
 
 module.exports = {

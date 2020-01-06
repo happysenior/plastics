@@ -8,6 +8,7 @@ import chatCtrl from './controllers/Chat.controller.js';
 import auctionCtrl from './controllers/Auction.controller.js';
 import wantedCtrl from './controllers/Wanted.controller.js';
 import notifyCtrl from './controllers/Notification.controller.js';
+import paymentCtrl from './controllers/Payment.controller.js';
 import auth from "../src/auth/middleware";
 
 /*
@@ -33,12 +34,12 @@ router.get('/users/:UserId/followers/some', auth.authorization, userCtrl.getSome
 router.get('/users/:UserId/change-follow-status', auth.authorization, userCtrl.changeFollowStatus);
 router.get('/users/:UserId/followings/all', auth.authorization, userCtrl.getAllFollowings);
 router.get('/users/:UserId/followers/all', auth.authorization, userCtrl.getAllFollowers);
-router.get('/listings/properties', auth.authorization, listingCtrl.listingProperties);
 
+router.get('/listings/properties', auth.authorization, listingCtrl.listingProperties);
 router.get('/listings/:ListingId', auth.authorization, listingCtrl.getDetails);
 router.post('/listings', auth.authorization, listingCtrl.addListing);
 router.post('/listings/getListings', auth.authorization, listingCtrl.getListings);
-router.post('/listings/:ListingId',auth.authorization, listingCtrl.updateListing);
+router.post('/listings/:ListingId', auth.authorization, listingCtrl.updateListing);
 router.get('/listings/search/all', auth.authorization, listingCtrl.getAllSearchResult);
 router.get('/listings/search/some', auth.authorization, listingCtrl.getSearchResult);
 
@@ -71,8 +72,10 @@ router.get('/wanted-properties/', wantedCtrl.getProperties);
 
 router.post('/preregister/users/:UserId/wanted', wantedCtrl.preregister);
 
-/**1
- *  chat routings
+router.get('/countries', serviceCtrl.getCountries);
+
+/**
+ *  chat route
  */
 
 router.get('/getContactList', auth.authorization, chatCtrl.getContactList);
@@ -89,5 +92,21 @@ router.delete('/notifications/:id', auth.authorization, notifyCtrl.deleteNotific
 router.get('/notifications/some', auth.authorization, notifyCtrl.getSomeNotifications);
 router.get('/notifications/all', auth.authorization, notifyCtrl.getAllNotifications);
 
+/**
+ *  payment 
+ */
+
+router.get('/getPaymentSettings', auth.authorization, paymentCtrl.getSettings);
+router.get('/getPaymentMethods', auth.authorization, paymentCtrl.getPaymentMethods);
+
+router.post('/addACHTransfer', auth.authorization, paymentCtrl.addACHTransfer);
+router.post('/addCard', auth.authorization, paymentCtrl.addCard);
+router.post('/addSEPA', auth.authorization, paymentCtrl.addSEPA);
+
+router.post("/create-setup-intent", auth.authorization, paymentCtrl.createSetupIntent);
+router.post("/create-sepa-setup-intent", auth.authorization, paymentCtrl.createSEPASetupIntent);
+router.post("/confirm-card-order", auth.authorization, paymentCtrl.confirmCardOrder);
+
+router.post("/order", auth.authorization, paymentCtrl.order);
 
 module.exports = router;

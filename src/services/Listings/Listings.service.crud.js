@@ -1,15 +1,18 @@
 import models, { sequelize } from "../../../models";
-import { parse } from "url";
 import NtfService from "../Notification";
 
 const Op = sequelize.Op;
 
 async function addListing(UserId, feeds = {}) {
+
+  let status = 'Active';
+  if(feeds.isAuction === "true") status = 'Pending';
+
   const result = await models.Listing.build({
     UserId,
     title: feeds.title,
     description: feeds.description,
-    status: "Active",
+    status,
     CategoryId: feeds.categoryId,
     ConditionId: feeds.conditionId,
     ProductCodeId: feeds.productCodeId,
@@ -93,12 +96,14 @@ async function addListing(UserId, feeds = {}) {
 async function updateListing(UserId, ListingId, feeds) {
   try {
     const listing = await models.Listing.findByPk(ListingId);
-
+    let status = 'Active';
+    if(feeds.isAuction) status = 'Pending';
+  
     await listing.update({
       UserId,
       title: feeds.title,
       description: feeds.description,
-      status: "Active",
+      status,
       CategoryId: feeds.categoryId,
       ConditionId: feeds.conditionId,
       ProductCodeId: feeds.productCodeId,
@@ -216,7 +221,6 @@ function getListings(UserId, filter) {
       return [];
     }
     const usersWhere = user.type !== "PREMIUM" && user.type !== "ADMIN" ? { users: "NORMAL" } : {};
-    const activeWhere = { status: "Active" };
     const countryIdsWhere =
       filter.countryIds && filter.countryIds.length > 0
         ? {
@@ -253,7 +257,6 @@ function getListings(UserId, filter) {
 
     const where = {
       ...usersWhere,
-      ...activeWhere,
       ...countryIdsWhere,
       ...categoryIdsWhere,
       ...conditionIdsWhere,
@@ -307,6 +310,7 @@ function getListings(UserId, filter) {
           unit: item.unit,
           type: item.User.type,
           isAuction: item.isAuction,
+          status: item.status,
           Currency,
           formatted_address,
           image
@@ -406,6 +410,8 @@ function getByUserId(UserId, ListingId = null, limit = null) {
         pricePerUnit: item.pricePerUnit,
         unit: item.unit,
         Currency: item.Country.Currency,
+        isAuction: item.isAuction,
+        status: item.status,
         formatted_address,
         image
       };

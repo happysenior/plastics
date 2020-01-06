@@ -126,7 +126,7 @@ async function register(req, res, next) {
         email: req.body.email,
         password: hasedPassword,
         CompanyId: companyId,
-        type: "NORMAL",
+        type: "PREMIUM",
         email_verified: false
       })
         .save()
