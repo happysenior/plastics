@@ -322,7 +322,7 @@ function updateProfile(req, res, next) {
 }
 
 function updateAvatar(req, res, next) {
-  avatarUploader(req, res, async function(uploadError) {
+  avatarUploader(req, res, async function (uploadError) {
     if (uploadError) {
       return api.error(res, uploadError, 400);
     } else {
@@ -353,6 +353,16 @@ function wishlist(req, res, next) {
     });
 }
 
+function getMyOrders(req, res, next) {
+  UserService.getMyOrders(req.UserId)
+    .then(listings => {
+      api.ok(res, listings);
+    })
+    .catch(e => {
+      api.error(res, e.message, 500);
+    });
+}
+
 module.exports = {
   list,
   login,
@@ -370,5 +380,6 @@ module.exports = {
   changeFollowStatus,
   updateProfile,
   updateAvatar,
-  wishlist
+  wishlist,
+  getMyOrders
 };

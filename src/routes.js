@@ -63,6 +63,8 @@ router.get('/auction/:ListingId/info', auth.authorization, auctionCtrl.getListin
 router.post('/wishlist/:ListingId', auth.authorization, listingCtrl.wishlist);
 router.get('/wishlist', auth.authorization, userCtrl.wishlist);
 
+router.get('/myorders', auth.authorization, userCtrl.getMyOrders);
+
 router.get('/wanted/:wantedId/delete', auth.authorization, wantedCtrl.deleteWanted);
 router.get('/wanted', auth.authorization, wantedCtrl.getAll);
 router.get('/wanted/:wantedId', auth.authorization, wantedCtrl.getDetail);

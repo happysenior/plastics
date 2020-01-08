@@ -22,9 +22,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-//set the express.static middleware
-app.use(express.static(__dirname + "/public"));
-
 app.use("/api", routes);
 
 // catch 404 and forward to error handler

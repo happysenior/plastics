@@ -180,7 +180,7 @@ async function cardPaymentProcess(UserId, feeds) {
     let upm = await models.UserPaymentMethod.findOne({ where: { UserId } });
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: feeDetail.amount * 100,
+      amount: Math.round(feeDetail.amount * 100),
       currency: feeDetail.currency,
       customer: upm.stripeCustomerId,
       payment_method: upm.card,
@@ -205,11 +205,12 @@ async function cardPaymentProcess(UserId, feeds) {
     } else if (err.code) {
       return {
         error: err.code,
-        clientSecret: err.raw.payment_intent.client_secret
+        clientSecret: null,
+        message: err.message
       };
     } else {
       console.log("Unknown error occurred", err);
-      throw err;
+      throw err
     }
   }
 }
@@ -227,7 +228,7 @@ async function order(UserId, feeds) {
     else if (feeds.method == "ach") {
       charge = stripe.charges
         .create({
-          amount: feeDetail.amount,
+          amount: Math.round(feeDetail.amount * 100),
           currency: "eur",
           customer: upm.stripeCustomerId,
           source: upm.bank

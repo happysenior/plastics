@@ -74,8 +74,8 @@ async function process(orderId) {
     html: htmlForSeller
   };
 
-  // transporter.sendMail(mailOptionsForBuyer);
-  // transporter.sendMail(mailOptionsForSeller);
+  transporter.sendMail(mailOptionsForBuyer);
+  transporter.sendMail(mailOptionsForSeller);
   NtfService.notifyNewOrder(orderId);
 }
 

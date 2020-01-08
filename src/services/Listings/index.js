@@ -8,6 +8,7 @@ import {
   getSomeByUserIdExceptOne,
   wishlist,
   isWish,
+  isOrdered
 } from "./Listings.service.crud.js";
 
 import {
@@ -26,5 +27,6 @@ module.exports = {
   getSearchResult,
   getAllSearchResult,
   wishlist,
-  isWish
+  isWish,
+  isOrdered
 };

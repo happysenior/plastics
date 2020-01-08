@@ -8,6 +8,7 @@ module.exports = {
         name: 'US Dollar',
         code: 'USD',
         symbol: '&#36;',
+        unicode: '$',
         rate: 1.00,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -17,6 +18,7 @@ module.exports = {
         name: 'Europe',
         code: 'EUR',  
         symbol: '&euro;',
+        unicode: '€',
         rate: 0.88,
         createdAt: new Date(),
         updatedAt: new Date()

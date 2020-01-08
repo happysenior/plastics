@@ -11,6 +11,7 @@ module.exports = {
         name: 'Danish Krone',
         code: 'DKK',
         symbol: 'kr',
+        unicode: 'kr',
         rate: 6.58,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -20,6 +21,7 @@ module.exports = {
         name: 'Pound Sterling',
         code: 'GBP',
         symbol: '&pound;',
+        unicode: '£',
         rate: 0.65,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -29,6 +31,7 @@ module.exports = {
         name: 'Australian Dollar',
         code: 'AUD',
         symbol: '&#36;',
+        unicode: '$',
         rate: 1.41,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -38,6 +41,7 @@ module.exports = {
         name: 'Singapore',
         code: 'SGD',
         symbol: '&#36;',
+        unicode: '$',
         rate: 1.41,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -47,6 +51,7 @@ module.exports = {
         name: 'Swedish Krona',
         code: 'SEK',
         symbol: 'kr',
+        unicode: 'kr',
         rate: 8.24,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -55,7 +60,8 @@ module.exports = {
         id: 8,
         name: 'Mexican Peso',
         code: 'MXN',
-        symbol: '$',
+        symbol: '&#36;',
+        unicode: '$',
         rate: 16.83,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -65,6 +71,7 @@ module.exports = {
         name: 'Brazilian Real',
         code: 'BRL',
         symbol: 'R$',
+        unicode: 'R$',
         rate: 3.88,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -74,6 +81,7 @@ module.exports = {
         name: 'Malaysia Ringgit',
         code: 'MYR',
         symbol: 'RM',
+        unicode: 'RM',
         rate: 4.31,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -83,6 +91,7 @@ module.exports = {
         name: 'Philippine Peso',
         code: 'PHP',
         symbol: 'P',
+        unicode: 'p',
         rate: 46.73,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -92,6 +101,7 @@ module.exports = {
         name: 'Swiss Franc',
         code: 'CHF',
         symbol: '&euro;',
+        unicode: '€',
         rate: 0.97,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -101,6 +111,7 @@ module.exports = {
         name: 'India',
         code: 'INR',
         symbol: '&#x20B9;',
+        unicode: '₹',
         rate: 66.24,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -110,6 +121,7 @@ module.exports = {
         name: 'Argentine Peso',
         code: 'ARS',
         symbol: '&#36;',
+        unicode: '$',
         rate: 9.35,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -119,6 +131,7 @@ module.exports = {
         name: 'Canadia Dollar',
         code: 'CAD',
         symbol: '&#36;',
+        unicode: '$',
         rate: 1.33,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -128,6 +141,7 @@ module.exports = {
         name: 'Chinese Yuan',
         code: 'CNY',
         symbol: '&#165;',
+        unicode: '¥',
         rate: 6.37,
         createdAt: new Date(),
         updatedAt: new Date()

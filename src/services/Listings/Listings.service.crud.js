@@ -6,7 +6,7 @@ const Op = sequelize.Op;
 async function addListing(UserId, feeds = {}) {
 
   let status = 'Active';
-  if(feeds.isAuction === "true") status = 'Pending';
+  if (feeds.isAuction === "true") status = 'Pending';
 
   const result = await models.Listing.build({
     UserId,
@@ -97,8 +97,8 @@ async function updateListing(UserId, ListingId, feeds) {
   try {
     const listing = await models.Listing.findByPk(ListingId);
     let status = 'Active';
-    if(feeds.isAuction) status = 'Pending';
-  
+    if (feeds.isAuction) status = 'Pending';
+
     await listing.update({
       UserId,
       title: feeds.title,
@@ -143,7 +143,7 @@ async function updateListing(UserId, ListingId, feeds) {
         order: [["order", "ASC"]]
       });
       for (imageOrder = 0; imageOrder < result.length; imageOrder++) {
-          await result[imageOrder].update({ order: imageOrder });
+        await result[imageOrder].update({ order: imageOrder });
       }
     }
     let images, video, pdf;
@@ -185,7 +185,7 @@ async function updateListing(UserId, ListingId, feeds) {
         })
       ]);
     }
-    
+
     const updatedListing = await models.Listing.findByPk(ListingId, {
       include: [
         { model: models.ListingFile },
@@ -224,35 +224,35 @@ function getListings(UserId, filter) {
     const countryIdsWhere =
       filter.countryIds && filter.countryIds.length > 0
         ? {
-            CountryId: {
-              [Op.in]: filter.countryIds
-            }
+          CountryId: {
+            [Op.in]: filter.countryIds
           }
+        }
         : {};
 
     const categoryIdsWhere =
       filter.categoryIds && filter.categoryIds.length > 0
         ? {
-            CategoryId: {
-              [Op.in]: filter.categoryIds
-            }
+          CategoryId: {
+            [Op.in]: filter.categoryIds
           }
+        }
         : {};
     const conditionIdsWhere =
       filter.conditionIds && filter.conditionIds.length > 0
         ? {
-            ConditionId: {
-              [Op.in]: filter.conditionIds
-            }
+          ConditionId: {
+            [Op.in]: filter.conditionIds
           }
+        }
         : {};
     const userIdsWhere =
       filter.userIds && filter.userIds.length > 0
         ? {
-            UserId: {
-              [Op.in]: filter.userIds
-            }
+          UserId: {
+            [Op.in]: filter.userIds
           }
+        }
         : {};
 
     const where = {
@@ -458,6 +458,19 @@ function isWish(UserId, ListingId) {
   });
 }
 
+function isOrdered(UserId, ListingId) {
+  return models.Order.findOne({
+    where: {
+      status: 'Active',
+      BuyerId: UserId,
+      ListingId
+    }
+  }).then(order => {
+    if (order) return true;
+    else return false;
+  });
+}
+
 module.exports = {
   addListing,
   updateListing,
@@ -466,5 +479,6 @@ module.exports = {
   getAllByUserId,
   getSomeByUserIdExceptOne,
   wishlist,
-  isWish
+  isWish,
+  isOrdered,
 };

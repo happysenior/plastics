@@ -88,7 +88,7 @@ function generateListingDetail(doc, invoice) {
   generateHr(doc, 310);
 
   const listingDetailTop = 315;
-
+  const unit = invoice.Order.Listing.unit === "mt" ? "t" : invoice.Order.Listing.unit
   doc
     .fontSize(10)
     .text("Title", 50, listingDetailTop)
@@ -100,7 +100,7 @@ function generateListingDetail(doc, invoice) {
     .text("Condition", 50, listingDetailTop + 30)
     .text(invoice.Order.Listing.Condition.name, 150, listingDetailTop + 30)
     .text("Quantity", 50, listingDetailTop + 45)
-    .text(invoice.Order.Listing.quantity + '' + invoice.Order.Listing.unit, 150, listingDetailTop + 45)
+    .text(invoice.Order.Listing.quantity + '' + unit, 150, listingDetailTop + 45)
     .text("Supply", 50, listingDetailTop + 60)
     .text(invoice.Order.Listing.supply, 150, listingDetailTop + 60)
     .text("Pricing terms", 50, listingDetailTop + 75)
@@ -121,7 +121,7 @@ function generateListingDetail(doc, invoice) {
   doc
     .fontSize(15)
     .font("Helvetica")
-    .text(`Price/${invoice.Order.Listing.unit}`, 50, priceDetailTop)
+    .text(`Price/${unit}`, 50, priceDetailTop)
     .text(`${currencyUnicode} ${invoice.Order.Listing.pricePerUnit}`, 350, priceDetailTop, { align: "right" })
     .text(`Order Volume`, 50, priceDetailTop + 20)
     .text(`${currencyUnicode} ${orderVolume}`, 350, priceDetailTop + 20, { align: "right" })
@@ -151,7 +151,7 @@ async function sendEmail(to, url) {
       html: `here is a url for your invoice<br/> ${url}`
     };
 
-    // transporter.sendMail(mailOptions);
+    transporter.sendMail(mailOptions);
   } catch (e) {
     throw e;
   }

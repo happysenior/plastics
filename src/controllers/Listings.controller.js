@@ -9,7 +9,7 @@ async function listingProperties(req, res, next) {
 }
 
 async function addListing(req, res, next) {
-  listingFileUpload(req, res, async function(uploadError) {
+  listingFileUpload(req, res, async function (uploadError) {
     if (uploadError) {
       return api.error(res, uploadError, 400);
     } else {
@@ -25,7 +25,7 @@ async function addListing(req, res, next) {
 }
 
 function updateListing(req, res, next) {
-  listingFileUpload(req, res, async function(uploadError) {
+  listingFileUpload(req, res, async function (uploadError) {
     if (uploadError) {
       return api.error(res, uploadError, 400);
     } else {
@@ -72,13 +72,14 @@ async function getListings(req, res, next) {
 }
 
 function getDetails(req, res, next) {
-  ListingService.getDetails(req.params.ListingId).then(listing => {
+  ListingService.getDetails(req.params.ListingId).then(async listing => {
     if (listing == null) api.error(res, "Listing does not exist", 404);
     else {
-      ListingService.isWish(req.UserId, req.params.ListingId).then(isWish => {
-        listing.dataValues = { ...listing.dataValues, isWish };
-        api.ok(res, listing);
-      });
+      const isWish = await ListingService.isWish(req.UserId, req.params.ListingId);
+      const isOrdered = await ListingService.isOrdered(req.UserId, req.params.ListingId);
+      listing.dataValues = { ...listing.dataValues, isWish };
+      listing.dataValues = { ...listing.dataValues, isOrdered };
+      api.ok(res, listing);
     }
   });
 }

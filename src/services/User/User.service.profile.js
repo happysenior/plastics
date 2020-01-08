@@ -217,11 +217,78 @@ function getWishlistByUserId(UserId) {
   });
 }
 
+function getMyOrders(UserId) {
+  return models.Order.findAll({
+    where: {
+      BuyerId: UserId,
+      status: 'Active'
+    },
+    include: [
+      {
+        model: models.Listing,
+        include: [
+          { model: models.ListingFile },
+          {
+            model: models.Country,
+            include: [
+              {
+                model: models.Currency
+              }
+            ]
+          }
+        ],
+        order: [[models.ListingFile, "order", "ASC"]]
+      }
+    ]
+  }).then(result => {
+    const listings = result.map((order, index) => {
+      let item = order.Listing;
+      let image,
+        formatted_address = "";
+      if (item.address) formatted_address += item.address;
+      if (item.city)
+        formatted_address +=
+          formatted_address == "" ? item.city : ", " + item.city;
+      if (item.zipcode)
+        formatted_address +=
+          formatted_address == "" ? item.zipcode : ", " + item.zipcode;
+      if (item.Country.name)
+        formatted_address +=
+          formatted_address == ""
+            ? item.Country.name
+            : ", " + item.Country.name;
+
+      if (item.ListingFiles) {
+        for (let i = 0; i < item.ListingFiles.length; i++) {
+          if (item.ListingFiles[i].dataValues.type == "IMAGE") {
+            image = item.ListingFiles[i].dataValues.url;
+            break;
+          }
+        }
+      }
+
+      return {
+        id: item.id,
+        UserId: item.UserId,
+        title: item.title,
+        pricePerUnit: item.pricePerUnit,
+        unit: item.unit,
+        Currency: item.Country.Currency,
+        formatted_address,
+        image
+      };
+    });
+    return listings;
+  });
+}
+
+
 module.exports = {
   getSomeFollowings,
   getSomeFollowers,
   getAllFollowers,
   getAllFollowings,
   updateProfile,
-  getWishlistByUserId
+  getWishlistByUserId,
+  getMyOrders
 };

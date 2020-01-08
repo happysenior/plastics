@@ -9,7 +9,8 @@ import {
   getAllFollowings,
   getAllFollowers,
   updateProfile,
-  getWishlistByUserId
+  getWishlistByUserId,
+  getMyOrders
 } from "./User.service.profile.js";
 
 module.exports = {
@@ -22,5 +23,6 @@ module.exports = {
   getAllFollowings,
   getAllFollowers,
   updateProfile,
-  getWishlistByUserId
+  getWishlistByUserId,
+  getMyOrders
 };
